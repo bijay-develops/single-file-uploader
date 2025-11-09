@@ -54,3 +54,21 @@ app.post('/upload', upload.single('file'), (req, res)=> {
 // ------------------------------
 // Route: DELETE /delete/:filename
 // ------------------------------
+// Deletes a file from the filestorage directory by name
+app.delete('/delete/:filename', (req, res)=> {
+    const filename = req.params.filename;  // Extract filename from URL 
+    const filepath = path.join(__dirname, 'filestorage', filename);  // Construct full file path
+
+    //Check if the file exists before trying to delete
+    if (fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath);   // Delete the file synchronously
+        res.send(`File ${filename} deleted successfully.`);
+    } else {
+        res.status(404).send('File not found.');
+    }
+});
+
+// ------------------------------
+// Route: Get /view
+// ------------------------------
+// Lists all uploaded files in the 'filestorage' directory
