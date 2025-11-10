@@ -72,3 +72,21 @@ app.delete('/delete/:filename', (req, res)=> {
 // Route: Get /view
 // ------------------------------
 // Lists all uploaded files in the 'filestorage' directory
+app.get('/view', (req, res) => {
+    const uploadDirectory = path.join(__dirname, 'filestorage');
+
+    // Read directory contents asynchronously
+    fs.readdir(uploadDirectory, (err, files) => {
+        if(err){
+            console.error(err);
+            res.status(500).send('Error reading the upload directory');
+        } else {
+            // Snding back the JSON object with the list of file names
+            res.json({ files});
+        }
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
+});
