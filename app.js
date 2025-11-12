@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const port = 4000;
+const port = 3000;
 
 app.set("view engine", "ejs");  // telling express to use ejs as templating engine
 
